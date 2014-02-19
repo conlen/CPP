@@ -1,4 +1,0 @@
-CPP
-===
-
-C++ Tutorial Code
