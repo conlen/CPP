@@ -1,2 +1,2 @@
 bin_PROGRAMS = hw
-test_SOURCES = hw.cpp
+hw_SOURCES = hw.cpp
