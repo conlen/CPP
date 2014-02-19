@@ -1,6 +1,6 @@
 AC_PREREQ(2.61)
 AC_INIT([programName], [0.1], [mike@conlen.org])
-AC_CONFIG_SRCDIR([src/test.c])
+AC_CONFIG_SRCDIR([src/hw.cpp])
 AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE([-Wall -Werror])
 AC_PROG_CXX([g++])
