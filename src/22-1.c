@@ -12,7 +12,7 @@
 
 
 
-#define BS	128
+#define BS	4096
 
 int propcmp(void const *a, void const *b)
 {
@@ -25,7 +25,7 @@ int propcmp(void const *a, void const *b)
 int64_t computeNamesScores(void)
 {
 	int	fd, rc;
-	char	*f, *d, *cur, **list, listLen = 0;
+	char	*f, *d, *cur, **list, blockLen = 0;
 	struct stat	buf;
 	uint64_t	count = 0, i, j, *scores, x = 0;
 
@@ -38,10 +38,10 @@ int64_t computeNamesScores(void)
 	close(fd);
 	count=0;
 	cur = strtok(d, ",\"");
-	listLen = 1;
+	blockLen = 1;
 	if((list = malloc(sizeof(char *)*BS)) == NULL) goto error0;
 	do { 
-		if(count >= listLen * BS) list = realloc(list, sizeof(char *)*(BS * ++listLen));
+		if(count >= blockLen * BS) list = realloc(list, sizeof(char *)*(BS * ++blockLen));
 		list[count++] = cur;
 	} while((cur = strtok(NULL, ",\"")) != NULL);
 	if((scores = calloc(count, sizeof(uint64_t))) == NULL) goto error3;

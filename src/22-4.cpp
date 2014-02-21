@@ -1,13 +1,3 @@
-#include <fcntl.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-
 #include <fstream>
 #include <iostream>
 #include <set>
@@ -43,7 +33,7 @@ int main(int argc, char *argv[])
 	inputFile.close();
 
 	d = (char *)malloc(sizeof(char)*inputNames.length() + 1);
-	memcpy(d, inputNames.c_str(), inputNames.length() + 1);
+	inputNames.copy(d, inputNames.length());
 	namesList = stringSplit(inputNames, ",\"");
 	for(auto k : namesList) {
 		curScore = 0;
