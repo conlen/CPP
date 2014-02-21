@@ -9,7 +9,7 @@ using namespace std;
 set<string> inline stringSplit(const string &source, const char *delimiter = " ", bool keepEmpty = false)
 {
 	set<string>		results;
-	size_t						prev = 0, next = 0;
+	size_t			prev = 0, next = 0;
 
 	while ((next = source.find_first_of(delimiter, prev)) != string::npos)
 	{
