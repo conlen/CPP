@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 		for(j=0; j<k.length(); j++) {
 			curScore += k[j] - 'A' + 1;
 		}	
-		x += curScore * (i++ +1);
+		x += curScore * (++i);
 	}
 	cout << x << endl;
 	return(0);
