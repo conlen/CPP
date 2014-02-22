@@ -20,13 +20,22 @@ set<string> inline stringSplit(const string &source, const char *delimiter = " "
 	return results;
 }
 
-uint64_t inline scoreNames(const set<string> list)
+uint64_t inline sum(const string &list) 
+{
+	uint64_t x = 0;
+	uint64_t i = 0;
+	for(i=0; i<list.size(); i++) {
+		x += list[i];
+	}
+	return(x);
+}
+
+uint64_t inline scoreNames(const set<string> &list)
 {
 	uint64_t		curScore = 0, i = 0, j = 0, x = 0;
 	for(auto k : list) {
-		curScore = 0;
-		for(j=0; j<k.length(); j++) curScore += k[j];
-		curScore -= ('A' - 1) * j;
+		curScore = sum(k);
+		curScore -= ('A' - 1) * k.size();
 		x += curScore * (++i);
 	}
 	return(x);
