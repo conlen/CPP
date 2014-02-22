@@ -21,7 +21,7 @@ set<string> inline stringSplit(const string &source, const char *delimiter = " "
 }
 
 template<typename R, class T>
-R sum(const T &v) 
+R inline sum(const T &v) 
 {
 	R x = 0, i = 0;
 
@@ -32,7 +32,7 @@ R sum(const T &v)
 }
 
 template<typename R>
-R sum(const string &v)
+R inline sum(const string &v)
 {
 	R x = 0, i = 0;
 	for(i=0; i<v.size(); i++) {
