@@ -20,28 +20,26 @@ set<string> inline stringSplit(const string &source, const char *delimiter = " "
 	return results;
 }
 
+uint64_t inline scoreNames(const set<string> list)
+{
+	uint64_t		curScore = 0, i = 0, j = 0, x = 0;
+	for(auto k : list) {
+		curScore = 0;
+		for(j=0; j<k.length(); j++) curScore += k[j] - 'A' + 1;
+		x += curScore * (++i);
+	}
+	return(x);
+}
+
 int main(int argc, char *argv[])
 {
-	char 					*d, *cur, *next;
-	uint64_t				i = 0, j, curScore = 0, x = 0, qNames;
-
-	ifstream				inputFile("names.txt");
-	string					s, k, inputNames;
+	ifstream		inputFile("names.txt");
+	string		s, k, inputNames;
 	set<string>	namesList;
 
 	inputFile >> inputNames;
 	inputFile.close();
-
-	d = (char *)malloc(sizeof(char)*inputNames.length() + 1);
-	inputNames.copy(d, inputNames.length());
 	namesList = stringSplit(inputNames, ",\"");
-	for(auto k : namesList) {
-		curScore = 0;
-		for(j=0; j<k.length(); j++) {
-			curScore += k[j] - 'A' + 1;
-		}	
-		x += curScore * (++i);
-	}
-	cout << x << endl;
+	cout << scoreNames(namesList) << endl;
 	return(0);
 }
