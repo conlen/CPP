@@ -1,4 +1,4 @@
-bin_PROGRAMS = hw hw2 stringExample 22-1 22-2 22-3 22-4 22-5
+bin_PROGRAMS = hw hw2 stringExample 22-1 22-2 22-3 22-4 22-5 22-6 22-7
 hw_SOURCES = hw.cpp
 hw2_SOURCES = hw2.c
 22_1_SOURCES = 22-1.c
@@ -6,4 +6,6 @@ hw2_SOURCES = hw2.c
 22_3_SOURCES = 22-3.cpp
 22_4_SOURCES = 22-4.cpp
 22_5_SOURCES = 22-5.cpp
+22_6_SOURCES = 22-6.cpp
+22_7_SOURCES = 22-7.cpp
 stringExample_SOURCES = stringExample.cpp
