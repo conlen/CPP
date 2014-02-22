@@ -7,7 +7,9 @@
 #include <unistd.h>
 
 #include <sys/mman.h>
+#include <sys/resource.h>
 #include <sys/stat.h>
+#include <sys/time.h>
 #include <sys/types.h>
 
 
@@ -24,10 +26,12 @@ int propcmp(void const *a, void const *b)
 // computeNamesScores //
 int64_t computeNamesScores(void)
 {
-	int	fd, rc;
-	char	*f, *d, *cur, **list, blockLen = 0;
-	struct stat	buf;
-	uint64_t	count = 0, i, j, *scores, x = 0;
+	int				fd, rc;
+	char			*f, *d, *cur, **list, blockLen = 0;
+	struct 			stat	buf;
+	uint64_t		count = 0, i, j, *scores, x = 0;
+
+
 
 	if((fd = open("names.txt", O_RDONLY)) == -1) goto error0;
 	if((rc = fstat(fd, &buf)) ==-1) goto error1;
@@ -72,9 +76,17 @@ error0:
 
 int main(int argc, char *argv[])
 {
-	int64_t	x;
-	
+	uint64_t	x;
+	int 		rc;
+	struct rusage	ru;
+	double			startTime, endTime;
+	volatile uint64_t	z;
+
+	if((rc = getrusage(RUSAGE_SELF, &ru)) != 0) { perror("getrusage 1");}
+	startTime = ru.ru_utime.tv_sec + ru.ru_stime.tv_sec + ((long double)(ru.ru_utime.tv_usec + ru.ru_stime.tv_sec)) / 1000000;
 	x = computeNamesScores();
-	printf("%lld\n", x);
+	if((rc = getrusage(RUSAGE_SELF, &ru)) != 0) { perror("getrusage 1");}
+	endTime = ru.ru_utime.tv_sec + ru.ru_stime.tv_sec + ((long double)(ru.ru_utime.tv_usec + ru.ru_stime.tv_sec)) / 1000000;
+	printf("Computed %lld in %f\n", x, endTime - startTime);
 	exit(0);
 }
