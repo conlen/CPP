@@ -20,7 +20,7 @@ set<string> inline stringSplit(const string &source, const char *delimiter = " "
 	return results;
 }
 
-uint64_t inline sum(const string &list) 
+uint64_t sum(const string &list) 
 {
 	uint64_t x = 0;
 	uint64_t i = 0;
