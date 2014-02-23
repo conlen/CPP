@@ -5,7 +5,9 @@
 #include <unistd.h>
 
 #include <sys/mman.h>
+#include <sys/resource.h>
 #include <sys/stat.h>
+#include <sys/time.h>
 #include <sys/types.h>
 
 #include <fstream>
@@ -30,6 +32,7 @@ list<string> inline stringSplit(const string &source, const char *delimiter = " 
 	return results;
 }
 
+// C++ version using list<string> and algorithm::sort()
 uint64_t computeNameScores()
 {
 	char 			*d, *cur, *next;

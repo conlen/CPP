@@ -3,6 +3,9 @@
 #include <set>
 #include <string>
 
+#include <sys/resource.h>
+#include <sys/time.h>
+
 using namespace std;
 
 set<string> inline stringSplit(const string &source, const char *delimiter = " ", bool keepEmpty = false)
