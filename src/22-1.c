@@ -1,4 +1,5 @@
 #include <fcntl.h>
+#include <inttypes.h>
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -86,6 +87,6 @@ int main(int argc, char *argv[])
 	x = computeNamesScores();
 	if((rc = getrusage(RUSAGE_SELF, &ru)) != 0) { perror("getrusage 1");}
 	endTime = ru.ru_utime.tv_sec + ru.ru_stime.tv_sec + ((long double)(ru.ru_utime.tv_usec + ru.ru_stime.tv_sec)) / 1000000;
-	printf("Computed %lld in %f\n", x, endTime - startTime);
+	printf("Computed %" PRIu64 " in %f\n", x, endTime - startTime);
 	exit(0);
 }
