@@ -20,19 +20,30 @@ set<string> inline stringSplit(const string &source, const char *delimiter = " "
 	return results;
 }
 
-uint64_t inline scoreNames(const set<string> list)
+// template the sum function 
+
+template<typename R, class T>
+R sum(const T &v) 
+{
+	R x = 0, i = 0;
+	
+	for(i=0; i<v.size(); i++) {
+		x += v[i];
+	}
+	return(x);
+}
+
+uint64_t inline scoreNames(const set<string> &list)
 {
 	uint64_t		curScore = 0, i = 0, j = 0, x = 0;
 	for(auto k : list) {
-		curScore = 0;
-		for(j=0; j<k.length(); j++) curScore += k[j];
-		curScore -= ('A' - 1) * j;
+		curScore = sum<uint64_t>(k);
+		curScore -= ('A' - 1) * k.size();
 		x += curScore * (++i);
 	}
 	return(x);
 }
-// C++ using set<string> since it stays sorted
-// extracted the scoring algorithm
+
 uint64_t computeNameScores()
 {
 	ifstream		inputFile("names.txt");

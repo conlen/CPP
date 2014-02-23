@@ -52,7 +52,7 @@ uint64_t inline scoreNames(const set<string> &list)
 	return(x);
 }
 
-int main(int argc, char *argv[])
+uint64_t computeNameScores()
 {
 	ifstream		inputFile("names.txt");
 	string		s, k, inputNames;
@@ -61,6 +61,23 @@ int main(int argc, char *argv[])
 	inputFile >> inputNames;
 	inputFile.close();
 	namesList = stringSplit(inputNames, ",\"");
-	cout << scoreNames(namesList) << endl;
+	return(scoreNames(namesList));	
+}
+
+int main(int argc, char *argv[])
+{
+	uint64_t	x;
+
+	int 		rc;
+	struct rusage	ru;
+	double			startTime, endTime;
+	volatile uint64_t	z;
+
+	if((rc = getrusage(RUSAGE_SELF, &ru)) != 0) { perror("getrusage 1");}
+	startTime = ru.ru_utime.tv_sec + ru.ru_stime.tv_sec + ((long double)(ru.ru_utime.tv_usec + ru.ru_stime.tv_sec)) / 1000000;
+	x = computeNameScores();
+	if((rc = getrusage(RUSAGE_SELF, &ru)) != 0) { perror("getrusage 1");}
+	endTime = ru.ru_utime.tv_sec + ru.ru_stime.tv_sec + ((long double)(ru.ru_utime.tv_usec + ru.ru_stime.tv_sec)) / 1000000;
+	cout << "Computed " << x << " in " << endTime - startTime << endl;
 	return(0);
 }

@@ -10,47 +10,44 @@
 
 #include <fstream>
 #include <iostream>
-#include <list>
+#include <queue>
+#include <set>
 #include <string>
 #include <vector>
 
 using namespace std;
 
-list<string> inline stringSplit(const string &source, const char *delimiter = " ", bool keepEmpty = false)
+set<string> inline stringSplit(const string &source, const char *delimiter = " ", bool keepEmpty = false)
 {
-	list<string>	results;
+	set<string>		results;
 	size_t			prev = 0, next = 0;
 
 	while ((next = source.find_first_of(delimiter, prev)) != string::npos)
 	{
-		if (keepEmpty || (next - prev != 0)) results.push_back(source.substr(prev, next - prev));
+		if (keepEmpty || (next - prev != 0)) results.insert(source.substr(prev, next - prev));
 		prev = next + 1;
 	}
-	if (prev < source.size()) results.push_back(source.substr(prev));
+	if (prev < source.size()) results.insert(source.substr(prev));
 	return results;
 }
 
-uint64_t computeNameScores()
+// C++ version using a set<string> since it doesn't need sort
+uint64_t computeNameScores() 
 {
-	char 			*d, *cur, *next;
-	uint64_t		i = 0, j, curScore = 0, x = 0;
+	char 					*d, *cur, *next;
+	uint64_t				i = 0, j, curScore = 0, x = 0;
 
-	ifstream		inputFile("names.txt");
-	string			s, inputNames;
-	list<string>	namesList;	inputFile >> inputNames;
+	ifstream				inputFile("names.txt");
+	string					s, k, inputNames;
+	set<string>				namesList;
+
+	inputFile >> inputNames;
 	inputFile.close();
-
-	d = (char *)malloc(sizeof(char)*inputNames.length() + 1);
-	memcpy(d, inputNames.c_str(), inputNames.length() + 1);
 	namesList = stringSplit(inputNames, ",\"");
-	namesList.sort();
-
-
 	for(auto k : namesList) {
 		curScore = 0;
-		for(j=0; j<k.length(); j++) {
-			curScore += k[j] - 'A' + 1;
-		}	
+		for(j=0; j<k.length(); j++) curScore += k[j];
+		curScore -= ('A' - 1) * j;
 		x += curScore * (++i);
 	}
 	return(x);
