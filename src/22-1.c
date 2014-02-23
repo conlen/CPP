@@ -81,12 +81,10 @@ int main(int argc, char *argv[])
 	int 			rc;
 	struct rusage	ru;
 	double	startTime, endTime;
-	volatile uint64_t	z;
 
 	if((rc = getrusage(RUSAGE_SELF, &ru)) != 0) { perror("getrusage 1");}
 	startTime = ru.ru_utime.tv_sec + ru.ru_stime.tv_sec + ((long double)(ru.ru_utime.tv_usec + ru.ru_stime.tv_sec)) / 1000000;
 	x = computeNamesScores();
-	for(z=0; z<1000000000; z++) z++;
 	if((rc = getrusage(RUSAGE_SELF, &ru)) != 0) { perror("getrusage 1");}
 	endTime = ru.ru_utime.tv_sec + ru.ru_stime.tv_sec + ((long double)(ru.ru_utime.tv_usec + ru.ru_stime.tv_sec)) / 1000000;
 	printf("Computed %" PRIu64 " in %f\n", x, endTime - startTime);
