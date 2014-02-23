@@ -2,7 +2,6 @@
 #include <iostream>
 #include <set>
 #include <string>
-#include <vector>
 
 using namespace std;
 
@@ -20,19 +19,19 @@ set<string> inline stringSplit(const string &source, const char *delimiter = " "
 	return results;
 }
 
-uint64_t inline scoreNames(const set<string> list)
+uint64_t inline scoreNames(const set<string> &list)
 {
-	uint64_t		curScore = 0, i = 0, j = 0, x = 0;
+	uint64_t curScore = 0, i = 0, j = 0, x = 0;
+
 	for(auto k : list) {
 		curScore = 0;
 		for(j=0; j<k.length(); j++) curScore += k[j];
-		curScore -= ('A' - 1) * j;
+		curScore -= ('A' - 1) * k.length();
 		x += curScore * (++i);
 	}
 	return(x);
 }
 // C++ using set<string> since it stays sorted
-// extracted the scoring algorithm
 uint64_t computeNameScores()
 {
 	ifstream		inputFile("names.txt");

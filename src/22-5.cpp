@@ -2,7 +2,6 @@
 #include <iostream>
 #include <set>
 #include <string>
-#include <vector>
 
 using namespace std;
 
@@ -22,20 +21,19 @@ set<string> inline stringSplit(const string &source, const char *delimiter = " "
 
 uint64_t inline sum(const string &list) 
 {
-	uint64_t x = 0;
-	uint64_t i = 0;
-	for(i=0; i<list.size(); i++) {
-		x += list[i];
-	}
+	uint64_t x = 0, i = 0;
+
+	for(i=0; i<list.length(); i++) x += list[i];
 	return(x);
 }
 
 uint64_t inline scoreNames(const set<string> &list)
 {
-	uint64_t		curScore = 0, i = 0, j = 0, x = 0;
+	uint64_t	curScore = 0, i = 0, j = 0, x = 0;
+
 	for(auto k : list) {
 		curScore = sum(k);
-		curScore -= ('A' - 1) * k.size();
+		curScore -= ('A' - 1) * k.length();
 		x += curScore * (++i);
 	}
 	return(x);
