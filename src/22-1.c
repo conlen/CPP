@@ -84,9 +84,11 @@ int main(int argc, char *argv[])
 
 	if((rc = getrusage(RUSAGE_SELF, &ru)) != 0) { perror("getrusage 1");}
 	startTime = ru.ru_utime.tv_sec + ru.ru_stime.tv_sec + ((long double)(ru.ru_utime.tv_usec + ru.ru_stime.tv_sec)) / 1000000;
+	printf("startTime = %f\n", startTime);
 	x = computeNamesScores();
 	if((rc = getrusage(RUSAGE_SELF, &ru)) != 0) { perror("getrusage 1");}
 	endTime = ru.ru_utime.tv_sec + ru.ru_stime.tv_sec + ((long double)(ru.ru_utime.tv_usec + ru.ru_stime.tv_sec)) / 1000000;
+	printf("endTime = %f\n", endTime);
 	printf("Computed %" PRIu64 " in %f\n", x, endTime - startTime);
 	exit(0);
 }
