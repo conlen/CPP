@@ -19,6 +19,8 @@ class vektor {
 		vektor &operator=(const vektor &other);
 		vektor &operator=(const vector<double> &other);
 		vektor operator+(const vektor &other);
+		vector<double> get_x();
+		void set_x(vector<double> &other);
 
 	friend std::ostream& operator<<(std::ostream& s, vektor &v) {
 		
@@ -64,6 +66,18 @@ vektor vektor::operator+(const vektor &other){
 	return(r);
 }
 
+vector<double> vektor::get_x()
+{
+	return(x);
+}
+
+void vektor::set_x(vector<double> &other)
+{
+	cout << "do something when someone sets x" << endl;
+	x = other;
+	return;
+}
+
 int main(int argc, char *argv[])
 {
 	int 		rc;
@@ -88,6 +102,8 @@ int main(int argc, char *argv[])
 	z3 = z + z2;
 	cout << z3 << endl;
 
+	z3.set_x(y);
+	cout << z3 << endl;
 	if((rc = getrusage(RUSAGE_SELF, &ru)) != 0) { perror("getrusage 1");}
 	endTime = ru.ru_utime.tv_sec + ru.ru_stime.tv_sec + ((long double)(ru.ru_utime.tv_usec + ru.ru_stime.tv_sec)) / 1000000;
 	cout << "Computed " << r << " in " << endTime - startTime << endl;
