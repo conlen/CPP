@@ -3,6 +3,7 @@
 #include <set>
 #include <string>
 #include <vector>
+#include "vektor.hpp"
 
 #include <sys/resource.h>
 #include <sys/time.h>
@@ -10,72 +11,87 @@
 using namespace std;
 
 
-class vektor {
-	private:
-		vector<double>	x;
-	public:
-		vektor();
-		~vektor();
-		vektor &operator=(const vektor &other);
-		vektor &operator=(const vector<double> &other);
-		vektor operator+(const vektor &other);
-		vector<double> get_x();
-		void set_x(vector<double> &other);
-
-	friend std::ostream& operator<<(std::ostream& s, vektor &v) {
-		
-		for(auto k : v.x) {
-			s << k << ",";
-		}
-
-		return s;
-	}
-};
-
-vektor::vektor() { cout << "I made a vektor" << endl; }
-vektor::~vektor() { cout << "vektor is dead" << endl; };
-// vektor &vektor::operator=(const vektor &other) 
-// {
-// 	cout << "assignment" << endl;
-// 	x = other;
-// 	return(*this);
-// }
-
-vektor &vektor::operator=(const vektor &other)
+void test1()
 {
-	x = other.x;
-	return(*this);
+	cout << "copy constructor" << endl;
+	vector<double>	xd = {1.0, 2.0, 3.0}, yd = {4.0, 5.0, 6.0};
+	vector<float>	xf = {1.0, 2.0, 3.0}, yf = {1.0, 2.0, 3.0};
+	vektor<double, true>	zd(xd);
+	vektor<float, true>		zf(xf);
+	vektor<double>			zd2(xd);
+	vektor<float>			zf2(xf);
 
-}
-vektor &vektor::operator=(const vector<double> &other) 
-{
-	cout << "assignment from vector<double>" << endl;
-	x = other;
-	return(*this);
-}
+	cout << zd << endl;
+	cout << zf << endl;
+	cout << zd2 << endl;
+	cout << zf2 << endl;
 
-vektor vektor::operator+(const vektor &other){
-	vektor	r;
-	vector<double>	y;
-
-	y.resize(x.size());
-	for(auto i=0; i<x.size(); i++) {
-		y[i] = x[i] + other.x[i];
-	}
-	r = y;
-	return(r);
-}
-
-vector<double> vektor::get_x()
-{
-	return(x);
-}
-
-void vektor::set_x(vector<double> &other)
-{
-	cout << "do something when someone sets x" << endl;
-	x = other;
 	return;
+}
+
+void test2()
+{
+	cout << "default constructor" << endl;
+	volatile vektor<double, true>		xd;
+	volatile vektor<float, true>		xf;
+	volatile vektor<int, true>			xi;
+	volatile vektor<double>				xd2;
+	volatile vektor<float>				xf2;
+	volatile vektor<int>				xi2;
+
+	return;
+}
+
+void test3()
+{
+	vector<double>	x = {1.0, 2.0, 3.0};
+	vector<double>	z = {2.0, 3.0};
+	vektor<double, true>	y(x);
+
+	cout << "compare vektor to vector" << endl;
+	cout << "y == x is " << (y == x) << endl;
+	cout << "compare vector to vektor" << endl;
+	cout << "x == y is " << (x == y) << endl;	
+	cout << "compare vektor to vector (false)" << endl;
+	cout << "y == z is " << (y == z) << endl;
+	cout << "comapre vector to vektor (false)" << endl;
+	cout << "z == y is " << (z == y) << endl;
+	return;
+}
+
+void test4()
+{
+	vector<double>			x = {1.0, 2.0, 3.0};
+	vektor<double, true>	z;
+
+	z = x;
+	cout << "test assignment" << endl;
+	cout << "z = x results in (z == x) = " << (z == x) << endl;
+	return;
+}
+
+void test5()
+{
+	vector<double>			x = {1.0, 2.0, 3.0}, y = {2.0, 3.0, 4.0};
+	vektor<double>			z1(x), z2(y), z3;
+
+	z3 = z1 + z2;
+	cout << "addition: " << z1 << "+" << z2 << "==" << z3 << endl;
+	return;
+}
+
+void test6()
+{
+	vector<double>			x = {1.0, 2.0, 3.0}, y = {2.0, 3.0, 4.0}, a = { 20.0 };
+	vektor<double, true>	z1(x), z2(y), z3;
+ 
+ 	cout << "multiplication test: " << endl;
+	z3 = z1 * z2;
+	cout << "(z1 * z2 == { 20.0 }) == " << (z3 == a) << endl;
+	cout << "z3 is valid == " << z3.isValid() << endl;
+	z1 = z2 * z3;
+	cout << "z1 = " << z1 << " is valid == (should be false) " << z1.isValid() << endl;
+
 }
 
 int main(int argc, char *argv[])
@@ -83,27 +99,20 @@ int main(int argc, char *argv[])
 	int 		rc;
 	struct rusage	ru;
 	double			startTime, endTime;
-	vector<double> 	x = {1.0, 2.0, 3.0}, y = {4.0, 5.0, 6.0};
-	vector<float>	x2 = {11.0, 2.0, 3.0}, y2 = {41.0, 5.0, 6.0};
 	double 			r;
-	vektor			z, z2, z3;
 
 
 	cout << "main start" << endl;
 	if((rc = getrusage(RUSAGE_SELF, &ru)) != 0) { perror("getrusage 1");}
 	startTime = ru.ru_utime.tv_sec + ru.ru_stime.tv_sec + ((long double)(ru.ru_utime.tv_usec + ru.ru_stime.tv_sec)) / 1000000;
 
-	z = x;
-	cout << z << endl;
+	test1();
+	test2();
+	test3();
+	test4();
+	test5();
+	test6();
 
-	z2 = z;
-	cout << z2 << endl;
-
-	z3 = z + z2;
-	cout << z3 << endl;
-
-	z3.set_x(y);
-	cout << z3 << endl;
 	if((rc = getrusage(RUSAGE_SELF, &ru)) != 0) { perror("getrusage 1");}
 	endTime = ru.ru_utime.tv_sec + ru.ru_stime.tv_sec + ((long double)(ru.ru_utime.tv_usec + ru.ru_stime.tv_sec)) / 1000000;
 	cout << "Computed " << r << " in " << endTime - startTime << endl;

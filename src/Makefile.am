@@ -11,5 +11,5 @@ hw2_SOURCES = hw2.c
 22_7_SOURCES = 22-7.cpp
 stringExample_SOURCES = stringExample.cpp
 dot_SOURCES = dot.cpp
-dot2_SOURCES = dot2.cpp
+dot2_SOURCES = dot2.cpp vector.hpp
 ptrie_SOURCES = ptrie.c

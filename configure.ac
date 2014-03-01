@@ -6,7 +6,7 @@ AM_INIT_AUTOMAKE([-Wall -Werror])
 AC_PROG_CXX([g++])
 AC_HEADER_STDC
 
-CXXFLAGS="$CXXFLAGS -std=c++0x"
+CXXFLAGS="$CXXFLAGS --std=c++0x"
 AC_CHECK_HEADERS([stdio.h])
 AC_CHECK_HEADERS([stdlib.h])
 AC_CHECK_HEADERS([malloc.h])
