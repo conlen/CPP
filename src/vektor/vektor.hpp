@@ -4,6 +4,8 @@
 template<typename T>
 class vektor 
 {
+	private:
+		std::vector<T>	x;
 	public:
 					vektor();
 					~vektor();
