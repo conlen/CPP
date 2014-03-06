@@ -6,9 +6,11 @@ using namespace std;
 void test1()
 {
 
-	vektor<float>	x;
+	vektor<float>		x;
+	std::vector<float> 	v = {1, 2, 3};
 
 	cout << "test1" << endl;
+	x = v;
 
 	cout << "end test1" << endl;
 	return;
