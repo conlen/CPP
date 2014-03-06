@@ -40,6 +40,7 @@ template<typename T>
 vektor<T>::vektor(const std::vector<T> &o)
 {
 	std::cout << "Construct vektor from vector<T>" << std::endl;
+	x = o;
 	return;
 }
 
