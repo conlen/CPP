@@ -9,7 +9,23 @@ class vektor
 	public:
 		vektor();
 		~vektor();
-		vektor&		operator=(const std::vector<T> &o);
+		vektor& 	operator=(const std::vector<T> &o);
+
+	friend std::ostream& operator<<(std::ostream& s, vektor<T> &v) {
+		int	i;
+
+		if(v.x.size() > 0) {
+			s << "<";
+			for(i=0; i<v.x.size() -1; i++) {
+				s << v.x[i] << ",";
+			}
+			s << v.x[i] << ">";
+			return s;
+		} else {
+			s << "<NO_SIZE>";
+			return(s);
+		}
+	}
 };
 
 template<typename T>
