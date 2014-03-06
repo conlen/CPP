@@ -8,6 +8,9 @@ void test1()
 
 	vektor<float>	x;
 
+	cout << "test1" << endl;
+
+	cout << "end test1" << endl;
 	return;
 }
 
