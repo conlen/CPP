@@ -8,6 +8,7 @@ class vektor
 		std::vector<T>	x;
 	public:
 		vektor();
+		vektor(const std::vector<T> &v);
 		~vektor();
 		vektor& 	operator=(const std::vector<T> &o);
 
