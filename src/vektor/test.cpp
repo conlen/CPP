@@ -16,6 +16,14 @@ void test1()
 	return;
 }
 
+void test2()
+{
+	std::vector<double>	v = {1.0, 2.0, 3.0};
+	vektor<double>		x(v);
+
+	return;
+}
+
 int main(int argc, char *argv[])
 {
 	int 		rc;
@@ -23,7 +31,7 @@ int main(int argc, char *argv[])
 	cout << "main start" << endl;
 
 	test1();
-
+	test2();
 
 	return(0);
 }
