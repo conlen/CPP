@@ -10,7 +10,8 @@ class vektor
 		vektor();
 		vektor(const std::vector<T> &v);
 		~vektor();
-		vektor& 	operator=(const std::vector<T> &o);
+		vektor<T>& 	operator=(const std::vector<T> &o);
+		vektor<T>	operator+(const vektor<T> &o);
 
 	friend std::ostream& operator<<(std::ostream& s, vektor<T> &v) {
 		int	i;
@@ -36,6 +37,7 @@ vektor<T>::vektor()
 	return;
 }
 
+
 template<typename T>
 vektor<T>::vektor(const std::vector<T> &o)
 {
@@ -57,4 +59,19 @@ vektor<T>& vektor<T>::operator=(const std::vector<T> &o)
 	x = o;
 	std::cout << "assign vektor" << std::endl;
 	return(*this);
+}
+
+template <typename T>
+vektor<T>	vektor<T>::operator+(const vektor<T> &o)
+{
+	vektor<T>	r;
+	std::vector<T>	y;
+
+	y.resize(x.size());
+	for(auto i = 0; i< x.size(); i++) {
+		y[i] = x[i] + o.x[i];
+	}
+	r = y;
+	return(r);
+
 }
