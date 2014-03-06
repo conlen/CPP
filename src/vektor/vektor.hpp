@@ -37,6 +37,13 @@ vektor<T>::vektor()
 }
 
 template<typename T>
+vektor<T>::vektor(const std::vector<T> &o)
+{
+	std::cout << "Construct vektor from vector<T>" << std::endl;
+	return;
+}
+
+template<typename T>
 vektor<T>::~vektor()
 {
 	std::cout << "Destruct vektor" << std::endl;

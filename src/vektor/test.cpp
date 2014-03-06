@@ -20,7 +20,9 @@ void test2()
 {
 	std::vector<double>	v = {1.0, 2.0, 3.0};
 	vektor<double>		x(v);
-
+	cout << "test2" << endl;
+	cout << "x = " << x << endl;
+	cout << "end test2" << endl;
 	return;
 }
 
