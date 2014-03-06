@@ -11,10 +11,6 @@ void test1()
 int main(int argc, char *argv[])
 {
 	int 		rc;
-	struct rusage	ru;
-	double			startTime, endTime;
-	double 			r;
-
 
 	cout << "main start" << endl;
 
