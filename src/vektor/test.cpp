@@ -11,7 +11,7 @@ void test1()
 
 	cout << "test1" << endl;
 	x = v;
-
+	cout << "x = " << x << endl;
 	cout << "end test1" << endl;
 	return;
 }
