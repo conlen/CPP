@@ -7,7 +7,7 @@ void test1()
 {
 
 	vektor<float>		x;
-	std::vector<float> 	v = {1, 2, 3};
+	std::vector<float> 	v = {1.0, 2.0, 3.0};
 
 	cout << "test1" << endl;
 	x = v;
