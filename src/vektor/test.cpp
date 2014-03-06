@@ -70,7 +70,7 @@ void test6()
 	std::vector<double> v2 = {2.3, 4.5};
 	vektor<double>		x(v1), y(v2), z;
 	cout << "test6" << endl;
-	z = y + x;
+	z = x + y;
 	cout << "z = " << z << endl;
 	cout << "end test6" << endl;
 
@@ -88,6 +88,6 @@ int main(int argc, char *argv[])
 	test4();
 	test5();
 	test6();
-	
+
 	return(0);
 }
