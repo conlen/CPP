@@ -16,5 +16,6 @@ AC_FUNC_MALLOC
 AC_FUNC_MMAP
 AC_CHECK_FUNCS([fstat])
 AC_CONFIG_FILES([Makefile
-	src/Makefile])
+	src/Makefile
+	src/vektor/Makefile])
 AC_OUTPUT
