@@ -5,6 +5,9 @@ using namespace std;
 
 void test1()
 {
+
+	vektor<float>	x;
+
 	return;
 }
 
