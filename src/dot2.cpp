@@ -83,8 +83,9 @@ void test5()
 void test6()
 {
 	vector<double>			x = {1.0, 2.0, 3.0}, y = {2.0, 3.0, 4.0}, a = { 20.0 };
-	vektor<double, true>	z1(x), z2(y), z3;
- 
+	vektor<double>			z1(x), z2(y), z3;
+ 	vektor<double, true>	u1(x), u2(y), u3;
+
  	cout << "multiplication test: " << endl;
 	z3 = z1 * z2;
 	cout << "(z1 * z2 == { 20.0 }) == " << (z3 == a) << endl;
@@ -92,8 +93,23 @@ void test6()
 	z1 = z2 * z3;
 	cout << "z1 = " << z1 << " is valid == (should be false) " << z1.isValid() << endl;
 
+	u3 = u1 * u2;
+	cout << "(u1 * 2u == { 20.0 }) == " << (u3 == a) << endl;
+	cout << "u3 is valid == " << u3.isValid() << endl;
+	cout << "u3 = " << u3 << endl;
+
 }
 
+void test7()
+{
+	vector<double>			x = {1.0, 2.0, 3.0};
+	vektor<double, true>	z(x);
+
+	cout << "Test dimension" << endl;
+	cout << "dimension of z = " << z.dimension() << " should be 3" << endl;
+	return;
+
+}
 int main(int argc, char *argv[])
 {
 	int 		rc;
@@ -112,6 +128,7 @@ int main(int argc, char *argv[])
 	test4();
 	test5();
 	test6();
+	test7();
 
 	if((rc = getrusage(RUSAGE_SELF, &ru)) != 0) { perror("getrusage 1");}
 	endTime = ru.ru_utime.tv_sec + ru.ru_stime.tv_sec + ((long double)(ru.ru_utime.tv_usec + ru.ru_stime.tv_sec)) / 1000000;
