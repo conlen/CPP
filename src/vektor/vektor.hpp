@@ -45,6 +45,7 @@ vektor<T>::~vektor()
 template<typename T>
 vektor<T>& vektor<T>::operator=(const std::vector<T> &o) 
 {
+	x = o;
 	std::cout << "assign vektor" << std::endl;
 	return(*this);
 }
