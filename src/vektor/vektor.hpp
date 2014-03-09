@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 
+
 template<typename T>
 class vektor 
 {
@@ -12,6 +13,30 @@ class vektor
 		~vektor();
 		vektor<T>& 	operator=(const std::vector<T> &o);
 		vektor<T>	operator+(const vektor<T> &o);
+		vektor<T>	operator-(const vektor<T> &o);
+		vektor<T>	operator*(const vektor<T> &o);
+		vektor<T>	operator*(const T &a);
+		unsigned int	dimension() const;
+		bool			isValid() const;
+
+		operator std::vector<T>() const
+		{
+			return(x);
+		}
+
+		template<typename U>
+		vektor<T>& operator=(const vektor<U> &r) 
+		{
+			std::vector<U>	v;
+			
+			v = (std::vector<U>)r;
+			x.resize(v.size());
+			for(auto i = 0; i< v.size(); i++) {
+				x[i] = v[i];
+			}
+
+			return(*this);
+		}
 
 	friend std::ostream& operator<<(std::ostream& s, vektor<T> &v) {
 		int	i;
@@ -28,6 +53,19 @@ class vektor
 			return(s);
 		}
 	}
+
+	friend vektor<T> operator*(const T &r, const vektor<T> &l)
+	{
+		vektor<T>	z;
+	
+		z.x.resize(l.x.size());
+		for(auto i = 0; i < l.x.size(); i++) {
+			z.x[i] = l.x[i] * r;
+		}
+		return(z);
+	}
+
+
 };
 
 template<typename T>
@@ -67,6 +105,11 @@ vektor<T>	vektor<T>::operator+(const vektor<T> &o)
 	vektor<T>	r;
 	std::vector<T>	y;
 
+	std::cout << "operator+ with x.size() = " << x.size() << std::endl;
+	if(x.size() != o.x.size()) {
+		r.x.resize(0);
+		return(r);
+	}
 	y.resize(x.size());
 	for(auto i = 0; i< x.size(); i++) {
 		y[i] = x[i] + o.x[i];
@@ -74,4 +117,64 @@ vektor<T>	vektor<T>::operator+(const vektor<T> &o)
 	r = y;
 	return(r);
 
+}
+
+template<typename T>
+vektor<T>	vektor<T>::operator-(const vektor<T> &o)
+{
+	vektor<T>	r;
+
+	if(x.size() != o.x.size()) {
+		r.x.resize(0);
+		return(r);
+	}
+	r.x.resize(x.size());
+	for(auto i = 0; i < x.size(); i++) {
+		r.x[i] = x[i] - o.x[i];
+	}
+	return(r);
+}
+
+template<typename T>
+vektor<T> vektor<T>::operator*(const vektor<T> &o)
+{
+	vektor<T>	r;
+	T 			p = 0;
+
+	std::cout << "operator* with x.size() = " << x.size() << std::endl;
+	if(x.size() != o.x.size()) {
+		r.x.resize(0);
+		return(r);
+	}
+	for(auto i = 0; i < x.size(); i++) {
+		p += x[i] * o.x[i];
+	}
+	r = {p};
+	return(r);
+	
+}
+
+template<typename T>
+vektor<T> vektor<T>::operator*(const T &a)
+{
+	vektor<T>	r;
+
+	r.x.resize(x.size());
+	for(auto i = 0; i < x.size(); i++) {
+		r.x[i] = x[i] * a;
+	}
+	return(r);
+}
+
+template<typename T>
+unsigned int vektor<T>::dimension() const
+{
+	return(x.size());
+}
+
+template<typename T>
+bool	vektor<T>::isValid() const 
+{
+	if(x.size() == 0) return false;
+	return(true);
 }
