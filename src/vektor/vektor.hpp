@@ -1,10 +1,47 @@
 #include <iostream>
 #include <vector>
 
+#include <boost/iterator/iterator_facade.hpp>
+
+template<typename T>
+class vektor;
+
+template<typename T>
+class vektorIterator
+	: public boost::iterator_facade<vektorIterator<T>, T, boost::random_access_traversal_tag>
+{
+	friend class boost::iterator_core_access;
+
+	private:
+		vektor<T>	*v;
+		long int	index;
+
+		bool equal(const vektorIterator<T> &other) const 
+		{
+			return((this->index == other.index) && (this->v == other.v) );
+		}
+
+		void increment() { index++; }
+		void decrement() { index--; }
+		void advance(long int n) { index+= n; }
+		long int distance_to(vektorIterator<T> y) { return(y.index - index); }
+
+		T &dereference() const { return(v->x[index]); }
+		
+	public:
+		vektorIterator() : v(NULL), index(0) {}
+		vektorIterator(vektor<T> *x) : v(x), index(0) {} 
+		vektorIterator(long int i) : v(NULL), index(i) {}
+		vektorIterator(vektor<T> *x, long int i) : v(x), index(i) {}
+		~vektorIterator() {}
+
+};
+
 
 template<typename T>
 class vektor 
 {
+	friend class vektorIterator<T>;
 	private:
 		std::vector<T>	x;
 	public:
@@ -18,6 +55,9 @@ class vektor
 		vektor<T>	operator*(const T &a);
 		unsigned int	dimension() const;
 		bool			isValid() const;
+
+		vektorIterator<T>	begin();
+		vektorIterator<T>	end();
 
 		operator std::vector<T>() const
 		{
@@ -178,4 +218,18 @@ bool	vektor<T>::isValid() const
 {
 	if(x.size() == 0) return false;
 	return(true);
+}
+
+template<typename T>
+vektorIterator<T>	vektor<T>::begin() 
+{
+	vektorIterator<T>	iter(this, 0);
+	return(iter);
+}
+
+template<typename T>
+vektorIterator<T>	vektor<T>::end()
+{
+	vektorIterator<T>	iter(this, this->x.size());
+	return(iter);
 }
