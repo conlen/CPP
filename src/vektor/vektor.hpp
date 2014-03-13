@@ -24,7 +24,7 @@ class vektorIterator
 		void increment() { index++; }
 		void decrement() { index--; }
 		void advance(long int n) { index+= n; }
-		int distance_to(vektorIterator<T> y) { return(y.index - index); }
+		int distance_to(vektorIterator<T> y) const { return(y.index - index); } 
 
 		T &dereference() const { return(v->x[index]); }
 		
