@@ -96,7 +96,7 @@ void test8()
 	vektor<double>		x(v1), z;
 
 	cout << "test8" << endl;
-	z = a * x;
+	z = a * x; // z = *(a, x); z = a.*(x) 
 	cout << "x = " << x << endl;
 	cout << "z = " << z << endl;
 	z = x * a;

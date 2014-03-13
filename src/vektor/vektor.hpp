@@ -21,7 +21,7 @@ class vektor
 
 		operator std::vector<T>() const
 		{
-			return(x);
+			return x;
 		}
 
 		template<typename U>
@@ -32,7 +32,7 @@ class vektor
 			v = (std::vector<U>)r;
 			x.resize(v.size());
 			for(auto i = 0; i< v.size(); i++) {
-				x[i] = v[i];
+				x[i] = (T)v[i];
 			}
 
 			return(*this);
@@ -54,13 +54,14 @@ class vektor
 		}
 	}
 
-	friend vektor<T> operator*(const T &r, const vektor<T> &l)
+
+	friend vektor<T> operator*(const T &l, const vektor<T> &r)
 	{
 		vektor<T>	z;
 	
-		z.x.resize(l.x.size());
-		for(auto i = 0; i < l.x.size(); i++) {
-			z.x[i] = l.x[i] * r;
+		z.x.resize(r.x.size());
+		for(auto i = 0; i < r.x.size(); i++) {
+			z.x[i] = r.x[i] * l;
 		}
 		return(z);
 	}
