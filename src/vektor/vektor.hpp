@@ -8,7 +8,7 @@ class vektor;
 
 template<typename T>
 class vektorIterator
-	: public boost::iterator_facade<vektorIterator<T>, T, boost::random_access_traversal_tag>
+	: public boost::iterator_facade<vektorIterator<T>, T, boost::random_access_traversal_tag, T&, int>
 {
 	friend class boost::iterator_core_access;
 
@@ -24,7 +24,7 @@ class vektorIterator
 		void increment() { index++; }
 		void decrement() { index--; }
 		void advance(long int n) { index+= n; }
-		long int distance_to(vektorIterator<T> y) { return(y.index - index); }
+		int distance_to(vektorIterator<T> y) { return(y.index - index); }
 
 		T &dereference() const { return(v->x[index]); }
 		

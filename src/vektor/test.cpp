@@ -130,7 +130,7 @@ void test10()
 
 void test11()
 {
-		std::vector<float>	v1 = {1.2, 3.4, 5.6};
+		std:;vector<float>	v1 = {1.2, 3.4, 5.6};
 		vektor<float>		x(v1);
 		vektor<int>			y;	
 
@@ -141,46 +141,6 @@ void test11()
 
 }
 
-void test12()
-{
-	std::vector<float>	v1 = {1.2, 3.4, 5.6};
-	vektor<float>		x(v1);
-
-	cout << "test12" << endl;
-	for(auto i : x) {
-		cout << i << endl;
-	}
-	cout << "end test12" << endl;
-}
-
-void test13()
-{
-	std::vector<float>	v1 = {1.2, 3.4, 5.6};
-	vektor<float>		x(v1);
-
-	cout << "test13" << endl;
-	
-	auto i = x.begin();
-
-	cout << "i[1] = " << i[1] << endl;
-
-	cout << "end test13" << endl;
-}
-
-
-void test14()
-{
-	std::vector<float>	v1 = {1.2, 3.4, 5.6};
-	vektor<float>		x(v1);
-
-	cout << "test14" << endl;
-	
-	auto i = x.begin();
-	i += 2;
-	cout << "i = " << *i << endl;
-
-	cout << "end test14" << endl;
-}
 int main(int argc, char *argv[])
 {
 	int 		rc;
@@ -198,9 +158,5 @@ int main(int argc, char *argv[])
 	test9();
 	test10();
 	test11();
-	test12();
-	test13();
-	test14();
-
 	return(0);
 }
