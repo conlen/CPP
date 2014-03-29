@@ -71,7 +71,10 @@ void test6()
 	vektor<double>		x(v1), y(v2), z;
 
 	cout << "test6" << endl;
-	z = x + y;
+	try { z = x + y; }
+	catch(int e) {
+		cout << "caught " << e << endl;
+	}
 	cout << "z = " << z << endl;
 	cout << "end test6" << endl;
 
@@ -182,6 +185,19 @@ void test14()
 	cout << "end test14" << endl;
 }
 
+void test15()
+{
+	std::vector<float> v1 = {1.0, 2.0, 3.0}, v2 = {1.0};
+	vektor<float>		x(v1), y(v2), z;
+
+	cout << "test15" << endl;
+	try { z = x+y; }
+	catch(int e) {
+		cout << "exception " << e << " caught" << endl;
+	}
+	return;
+}
+
 int main(int argc, char *argv[])
 {
 	int 		rc;
@@ -202,6 +218,7 @@ int main(int argc, char *argv[])
 	test12();
 	test13();
 	test14();
+	test15();
 
 	return(0);
 }

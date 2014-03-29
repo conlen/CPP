@@ -3,6 +3,9 @@
 
 #include <boost/iterator/iterator_facade.hpp>
 
+#define VEKTOR_NO_ERROR			0
+#define VEKTOR_BAD_DIMENSION	1
+
 template<typename T>
 class vektor;
 
@@ -149,6 +152,7 @@ vektor<T>	vektor<T>::operator+(const vektor<T> &o)
 	std::cout << "operator+ with x.size() = " << x.size() << std::endl;
 	if(x.size() != o.x.size()) {
 		r.x.resize(0);
+		throw VEKTOR_BAD_DIMENSION;
 		return(r);
 	}
 	y.resize(x.size());
