@@ -97,7 +97,7 @@ void tofe<DEBUG>::move(int dimension)
 {
 	int 	i, j, k, cursor = 0, update = 0;
 	int 	newVector[5] = {0, 0, 0, 0, 0};
-	int 	location, value;
+	int 	location;
 
 	if(dimension == 1) {
 		for(i=0; i<5; i++) {
@@ -105,7 +105,7 @@ void tofe<DEBUG>::move(int dimension)
 				if(board[i][j] == 0) continue;
 				newVector[cursor++] = board[i][j];
 			}	
-//			score += collapse<DEBUG>(newVector);	
+			score += collapse<DEBUG>(newVector);	
 			for(j=0; j<5; j++) { 
 				if(board[i][j] != newVector[j]) update = 1;
 				board[i][j] = newVector[j]; 
@@ -119,7 +119,7 @@ void tofe<DEBUG>::move(int dimension)
 				if(board[i][j] == 0) continue;
 				newVector[cursor++] = board[i][j];
 			}
-//			score += collapse<DEBUG>(newVector);	
+			score += collapse<DEBUG>(newVector);	
 			for(j=0; j<5; j++) {
 				if(board[i][j] != newVector[4-j]) update = 1;
 				board[i][j] = newVector[4-j];
@@ -133,7 +133,7 @@ void tofe<DEBUG>::move(int dimension)
 				if(board[j][i] == 0) continue;
 				newVector[cursor++] = board[j][i];
 			}	
-//			score += collapse<DEBUG>(newVector);
+			score += collapse<DEBUG>(newVector);
 			for(j=0; j<5; j++) {
 				if(board[j][i] != newVector[4-j]) update = 1;
 				board[j][i] = newVector[4-j];
@@ -147,7 +147,7 @@ void tofe<DEBUG>::move(int dimension)
 				if(board[j][i] == 0) continue;
 				newVector[cursor++] = board[j][i];
 			}				
-//			score += collapse<DEBUG>(newVector);
+			score += collapse<DEBUG>(newVector);
 			for(j=0; j<5; j++) { 
 				if(board[j][i] != newVector[j]) update = 1;
 				board[j][i] = newVector[j]; 
@@ -165,15 +165,14 @@ void tofe<DEBUG>::move(int dimension)
 			}
 			if(board[i][j] == 0) break;
 		}
-		if(i<5 || j < 5) {
+		if(i<5 && j < 5) {
 			while(1) {
 				location = erand48(Xi) * 25;
 				if(DEBUG == 1)
-					std::cout << "location = " << location <<  ", board(location) = " << 
-					board[location/5][location%5] << std::endl;
+					std::cout << "location[" << location/5 <<  "][" << location%5 << "] = " 
+					<< board[location/5][location%5] << std::endl;
 				if(board[location/5][location%5] != 0) continue;
-				value = ((int)(erand48(Xi) * 10) == 0) ? 4 : 2;
-				board[location/5][location%5] = value;
+				board[location/5][location%5] = (int)((erand48(Xi) * 10) == 0) ? 4 : 2;
 				break;
 			}
 		}
