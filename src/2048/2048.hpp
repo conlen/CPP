@@ -19,13 +19,15 @@ class tofe
 		int					board[5][5];
 		unsigned long 		score = 0;
 		short unsigned int	Xi[3];
+		bool test1();
 	public:
 		tofe();
 		~tofe();
 
 		void move(int dimension);
 		bool movesLeft();
-		unsigned long getScore();
+		unsigned long getScore() const;
+		bool runTests();
 
 	friend std::ostream& operator<< <DEBUG>(std::ostream& s, const tofe<DEBUG> &t);
 };
@@ -80,6 +82,8 @@ template<int DEBUG>
 int collapse(int v[5])
 {
 	int j, k, score = 0;
+	if(DEBUG == 1) std::cout << "vector = <" << v[0] << "," << v[1] << "," << v[2] << ","
+	<< v[3] << "," << v[4] << "> -> ";
 	for(j=0; j<4; j++) {
 		if(v[j] != v[j+1]) continue;
 		v[j] *= 2;
@@ -89,6 +93,8 @@ int collapse(int v[5])
 		}
 		v[4] = 0;		
 	}
+	if(DEBUG == 1) std::cout << "<" << v[0] << "," << v[1] << "," << v[2] << ","
+	<< v[3] << "," << v[4] << ">" << std::endl;
 	return(score);
 }
 
@@ -101,6 +107,8 @@ void tofe<DEBUG>::move(int dimension)
 
 	if(dimension == 1) {
 		for(i=0; i<5; i++) {
+			cursor = 0;
+			for(j=0; j<5; j++) newVector[j] = 0;
 			for(j=0; j<5; j++) {
 				if(board[i][j] == 0) continue;
 				newVector[cursor++] = board[i][j];
@@ -115,6 +123,8 @@ void tofe<DEBUG>::move(int dimension)
 
 	if(dimension == -1) {
 		for(i=0; i<5; i++) {
+			cursor = 0;
+			for(j=0; j<5; j++) newVector[j] = 0;
 			for(j=4; j>=0; j--) {
 				if(board[i][j] == 0) continue;
 				newVector[cursor++] = board[i][j];
@@ -129,6 +139,8 @@ void tofe<DEBUG>::move(int dimension)
 
 	if(dimension == 2) {
 		for(i=0; i<5; i++) {
+			cursor = 0;
+			for(j=0; j<5; j++) newVector[j] = 0;
 			for(j=4; j>=0; j--) {
 				if(board[j][i] == 0) continue;
 				newVector[cursor++] = board[j][i];
@@ -143,6 +155,8 @@ void tofe<DEBUG>::move(int dimension)
 
 	if(dimension == -2) {
 		for(i=0; i<5; i++) {
+			cursor = 0;
+			for(j=0; j<5; j++) newVector[j] = 0;
 			for(j=0; j<5; j++) {
 				if(board[j][i] == 0) continue;
 				newVector[cursor++] = board[j][i];
@@ -206,9 +220,64 @@ bool tofe<DEBUG>::movesLeft()
 }
 
 template<int DEBUG>
-unsigned long tofe<DEBUG>::getScore()
+unsigned long tofe<DEBUG>::getScore() const
 {
 	return(score);
+}
+
+template<int DEBUG>
+bool tofe<DEBUG>::runTests() 
+{
+	bool	pass = true;
+
+	return(this->test1());
+}
+
+/*
+	The following board triggered movesLeft() == false but up/down should be an option. 
+
+       2      16       2       8       2
+       2       8    1024     128      16
+       8       2      16     256     512
+      64      32       8      16       8
+       4       8       4       2       4
+
+*/
+template<int DEBUG>
+bool tofe<DEBUG>::test1()
+{
+	board[0][0] = 2;
+	board[0][1] = 2;
+	board[0][2] = 8;
+	board[0][3] = 64;
+	board[0][4] = 4;
+
+	board[1][0] = 16;
+	board[1][1] = 8;
+	board[1][2] = 2;
+	board[1][3] = 32;
+	board[1][4] = 8;
+
+	board[2][0] = 2;
+	board[2][1] = 1024;
+	board[2][2] = 16;
+	board[2][3] = 8;
+	board[2][4] = 4;
+
+	board[3][0] = 8;
+	board[3][1] = 128;
+	board[3][2] = 256;
+	board[3][3] = 16;
+	board[3][4] = 2;
+
+	board[4][0] = 2;
+	board[4][1] = 16;
+	board[4][2] = 512;
+	board[4][3] = 8;
+	board[4][4] = 4;
+
+	std::cout << *this << std::endl;
+	return(this->movesLeft());
 }
 
 template<int DEBUG>

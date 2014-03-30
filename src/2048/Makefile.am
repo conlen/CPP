@@ -1,2 +1,3 @@
-bin_PROGRAMS = test
-test_SOURCES = test.cpp 2048.hpp
+bin_PROGRAMS = test random
+test_SOURCES = test.cpp 
+random_SOURCES = random.cpp
