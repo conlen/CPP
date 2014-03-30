@@ -1,6 +1,7 @@
 #include <iomanip>
 #include <iostream>
 #include <cstdint>
+#include <vector>
 
 #include <sys/time.h>
 
@@ -16,9 +17,10 @@ template<int DEBUG>
 class tofe
 {
 	private:
-		int					board[5][5];
-		unsigned long 		score = 0;
-		short unsigned int	Xi[3];
+		std::vector<std::vector<int>>	board;
+		unsigned long 					score = 0;
+		short unsigned int				Xi[3];
+
 		bool test1();
 	public:
 		tofe();
@@ -39,7 +41,9 @@ tofe<DEBUG>::tofe()
 	struct timeval	t;
 
 /* initialize board */
+	board.resize(5);
 	for(i=0; i<5; i++) {
+		board[i].resize(5);
 		for(j=0; j<5; j++) {
 			board[i][j] = 0;
 		}
