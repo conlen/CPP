@@ -20,6 +20,7 @@ class tofe
 		std::vector<std::vector<int>>	board;
 		unsigned long 					score = 0;
 		short unsigned int				Xi[3];
+		std::vector<std::vector<std::vector<int>> *>	history;
 
 		bool test1();
 	public:
@@ -39,6 +40,7 @@ tofe<DEBUG>::tofe()
 {
 	int 			i, j, rc, location[2], values[2];
 	struct timeval	t;
+	std::vector<std::vector<int>>	*save;
 
 /* initialize board */
 	board.resize(5);
@@ -63,6 +65,10 @@ tofe<DEBUG>::tofe()
 
 	board[location[0]/5][location[0]%5] = values[0];
 	board[location[1]/5][location[1]%5] = values[1];
+
+	save = new std::vector<std::vector<int>>;
+	*save = board;
+	history.push_back(save);
 	return;
 error0:
 	throw(TOFE_EXCEPTION);
