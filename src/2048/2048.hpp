@@ -105,7 +105,7 @@ void tofe<DEBUG>::move(int dimension)
 				if(board[i][j] == 0) continue;
 				newVector[cursor++] = board[i][j];
 			}	
-			score += collapse<DEBUG>(newVector);	
+//			score += collapse<DEBUG>(newVector);	
 			for(j=0; j<5; j++) { 
 				if(board[i][j] != newVector[j]) update = 1;
 				board[i][j] = newVector[j]; 
@@ -119,7 +119,7 @@ void tofe<DEBUG>::move(int dimension)
 				if(board[i][j] == 0) continue;
 				newVector[cursor++] = board[i][j];
 			}
-			score += collapse<DEBUG>(newVector);	
+//			score += collapse<DEBUG>(newVector);	
 			for(j=0; j<5; j++) {
 				if(board[i][j] != newVector[4-j]) update = 1;
 				board[i][j] = newVector[4-j];
@@ -133,7 +133,7 @@ void tofe<DEBUG>::move(int dimension)
 				if(board[j][i] == 0) continue;
 				newVector[cursor++] = board[j][i];
 			}	
-			score += collapse<DEBUG>(newVector);
+//			score += collapse<DEBUG>(newVector);
 			for(j=0; j<5; j++) {
 				if(board[j][i] != newVector[4-j]) update = 1;
 				board[j][i] = newVector[4-j];
@@ -147,7 +147,7 @@ void tofe<DEBUG>::move(int dimension)
 				if(board[j][i] == 0) continue;
 				newVector[cursor++] = board[j][i];
 			}				
-			score += collapse<DEBUG>(newVector);
+//			score += collapse<DEBUG>(newVector);
 			for(j=0; j<5; j++) { 
 				if(board[j][i] != newVector[j]) update = 1;
 				board[j][i] = newVector[j]; 
