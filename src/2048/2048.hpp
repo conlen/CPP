@@ -79,6 +79,7 @@ error0:
 template<int DEBUG>
 tofe<DEBUG>::~tofe()
 {
+	for(auto i : history) delete i;
 	return;
 }
 
