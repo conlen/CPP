@@ -95,47 +95,12 @@ int collapse(int v[5])
 template<int DEBUG>
 void tofe<DEBUG>::move(int dimension)
 {
-	int 	i, j, k, cursor, update = 0;
-	int 	newVector[5];
+	int 	i, j, k, cursor = 0, update = 0;
+	int 	newVector[5] = {0, 0, 0, 0, 0};
 	int 	location, value;
-
-
-	// if(dimension == -1 || dimension == 1) {
-	// 	for(i=0; i<5; i++) {
-	// 		cursor = 0;
-	// 		for(j=0; j<5; j++) { newVector[j] = 0; }
-			
-	// 		if(dimension > 0) {
-	// 			for(j=0; j<5; j++) {
-	// 				if(board[i][j] == 0) continue;
-	// 				newVector[cursor++] = board[i][j];
-	// 			}				
-	// 		} else if(dimension < 0) {
-	// 			for(j=4; j>=0; j--) {
-	// 				if(board[i][j] == 0) continue;
-	// 				newVector[cursor++] = board[i][j];
-	// 			}
-	// 		}			
-	// 		score += collapse<DEBUG>(newVector);
-	// 		if(dimension > 0) {
-	// 			for(j=0; j<5; j++) { 
-	// 				if(board[i][j] != newVector[j]) update = 1;
-	// 				board[i][j] = newVector[j]; 
-	// 			}	
-	// 		}		
-	// 		else if(dimension < 0) {
-	// 			for(j=0; j<5; j++) {
-	// 				if(board[i][j] != newVector[4-j]) update = 1;
-	// 				board[i][j] = newVector[4-j];
-	// 			}
-	// 		}
-	// 	}
-	// }
 
 	if(dimension == 1) {
 		for(i=0; i<5; i++) {
-			cursor = 0;
-			for(j=0; j<5; j++) { newVector[j] = 0; }
 			for(j=0; j<5; j++) {
 				if(board[i][j] == 0) continue;
 				newVector[cursor++] = board[i][j];
@@ -150,8 +115,6 @@ void tofe<DEBUG>::move(int dimension)
 
 	if(dimension == -1) {
 		for(i=0; i<5; i++) {
-			cursor = 0;
-			for(j=0; j<5; j++) { newVector[j] = 0; }
 			for(j=4; j>=0; j--) {
 				if(board[i][j] == 0) continue;
 				newVector[cursor++] = board[i][j];
@@ -164,40 +127,33 @@ void tofe<DEBUG>::move(int dimension)
 		}
 	}
 
-	if(dimension == -2 || dimension == 2) {
+	if(dimension == 2) {
 		for(i=0; i<5; i++) {
-			cursor = 0;
-			for(j=0; j<5; j++) { newVector[j] = 0; }
-			
-			if(dimension < 0) {
-				for(j=0; j<5; j++) {
-					if(board[j][i] == 0) continue;
-					newVector[cursor++] = board[j][i];
-				}				
-			} else if(dimension > 0) {
-				for(j=4; j>=0; j--) {
-					if(board[j][i] == 0) continue;
-					newVector[cursor++] = board[j][i];
-				}
-			}			
-
+			for(j=4; j>=0; j--) {
+				if(board[j][i] == 0) continue;
+				newVector[cursor++] = board[j][i];
+			}	
 			score += collapse<DEBUG>(newVector);
-			if(dimension < 0) {
-				for(j=0; j<5; j++) { 
-					if(board[j][i] != newVector[j]) update = 1;
-					board[j][i] = newVector[j]; 
-				}	
-			}		
-			else if(dimension > 0) {
-				for(j=0; j<5; j++) {
-					if(board[j][i] != newVector[4-j]) update = 1;
-					board[j][i] = newVector[4-j];
-				}
+			for(j=0; j<5; j++) {
+				if(board[j][i] != newVector[4-j]) update = 1;
+				board[j][i] = newVector[4-j];
 			}
-		}
-
+		}					
 	}
 
+	if(dimension == -2) {
+		for(i=0; i<5; i++) {
+			for(j=0; j<5; j++) {
+				if(board[j][i] == 0) continue;
+				newVector[cursor++] = board[j][i];
+			}				
+			score += collapse<DEBUG>(newVector);
+			for(j=0; j<5; j++) { 
+				if(board[j][i] != newVector[j]) update = 1;
+				board[j][i] = newVector[j]; 
+			}	
+		}					
+	}
 
 	if(DEBUG == 1) std::cout << "adding the new piece" << std::endl;
 
@@ -212,6 +168,9 @@ void tofe<DEBUG>::move(int dimension)
 		if(i<5 || j < 5) {
 			while(1) {
 				location = erand48(Xi) * 25;
+				if(DEBUG == 1)
+					std::cout << "location = " << location <<  ", board(location) = " << 
+					board[location/5][location%5] << std::endl;
 				if(board[location/5][location%5] != 0) continue;
 				value = ((int)(erand48(Xi) * 10) == 0) ? 4 : 2;
 				board[location/5][location%5] = value;
@@ -219,6 +178,8 @@ void tofe<DEBUG>::move(int dimension)
 			}
 		}
 	}
+	if(DEBUG == 1) std::cout << "done adding piece" << std::endl;
+	return;
 }
 
 template<int DEBUG>
@@ -226,6 +187,7 @@ bool tofe<DEBUG>::movesLeft()
 {
 	int 	i, j;
 
+	if(DEBUG == 1) std::cout << "movesLeft()" << std::endl;
 	for(i=0; i<5; i++) {
 		for(j=0; j<5; j++) {
 			if(board[i][j] == 0) return(true);
@@ -254,6 +216,7 @@ template<int DEBUG>
 std::ostream& operator<<(std::ostream& s, const tofe<DEBUG> &t) {
 	int 	i, j;
 
+	if(DEBUG == 1) std::cout << "output of t" << std::endl;
 	s << "score: " << std::setw(12) << t.score << std::endl;
 	for(i=0; i<5; i++) {
 		for(j=0; j<5; j++) {

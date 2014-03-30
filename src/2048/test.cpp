@@ -13,9 +13,7 @@ int main(int argc, char *argv[])
 
 	cout << t << endl;
 	while(t.movesLeft()) {
-		cout << "foo" << endl;
 		cin.get(input);
-		cout << "bar" << endl;
 		switch(input) {
 			case	'w' : 
 				t.move(1);
@@ -30,7 +28,8 @@ int main(int argc, char *argv[])
 				t.move(2);
 				break;
 		}
-		cout << endl << t << endl;
+		cout << "about to output t" << endl;
+		if(input != 10) cout << endl << t << endl;
 	}
 	cout << endl << t << endl;
 	return(0);
