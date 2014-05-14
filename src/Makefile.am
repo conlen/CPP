@@ -1,5 +1,5 @@
-SUBDIRS = vektor 2048
-bin_PROGRAMS = hw hw2 stringExample 22-1 22-2 22-3 22-4 22-5 22-6 22-7 22-3-2 ptrie dot dot2
+SUBDIRS = vektor 2048 rat
+bin_PROGRAMS = hw hw2 stringExample 22-1 22-2 22-3 22-4 22-5 22-6 22-7 22-3-2 ptrie dot dot2 pointers pointers2
 hw_SOURCES = hw.cpp
 hw2_SOURCES = hw2.c
 22_1_SOURCES = 22-1.c
@@ -14,3 +14,5 @@ stringExample_SOURCES = stringExample.cpp
 dot_SOURCES = dot.cpp
 dot2_SOURCES = dot2.cpp vector.hpp
 ptrie_SOURCES = ptrie.c
+pointers_SOURCES = pointers.cpp
+pointers2_SOURCES = pointers2.cpp

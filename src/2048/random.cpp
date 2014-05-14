@@ -20,21 +20,22 @@ using namespace boost::accumulators;
 namespace bacc = boost::accumulators;
 
 #define BUG 0
+#define COUNT 10000000
 
 int main(int argc, char *argv[])
 {
-	tofe<0>				*t;
+	tofe<0, BUG>		*t;
 	int 				score;
 	int 				i, r, rc;
 	short unsigned int 	Xi[3];
 	struct timeval		time;
-	accumulator_set<double, stats<tag::min, tag::max, tag::mean, tag::moment<2> > > acc;
+	accumulator_set<double, stats<tag::mean, tag::moment<2> > > acc;
 
 	if((rc = gettimeofday(&time, NULL)) != 0) goto error0;
 	memcpy(Xi, &time.tv_usec, sizeof(suseconds_t) < 6 ? sizeof(suseconds_t) : 6);
 
-	for(i=0; i<100000; i++) {
-		t = new tofe<0>;
+	for(i=0; i< COUNT; i++) {
+		t = new tofe<BUG>;
 		while(t->movesLeft()) {
 			if(BUG == 1) cout << endl << *t << endl;
 			r = erand48(Xi) * 4;
@@ -62,8 +63,8 @@ int main(int argc, char *argv[])
 		if(BUG == 1) cout << endl << *t << endl;
 		score = t->getScore();
 		acc(score);
-		if(i % 100 == 0) cout << "run " << i << ", score = " << score << ", min = " << bacc::min(acc) << ", max = " 
-		<< bacc::max(acc) << ", mean = " << mean(acc) << ", stdev = " << sqrt(moment<2>(acc)/i) << endl;
+		cout << "run " << i << ", score = " << score << ", mean = " << mean(acc) << ", stdev = " 
+			<< sqrt(moment<2>(acc)/i) << endl;
 		delete t;
 	}
 

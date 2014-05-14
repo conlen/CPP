@@ -1,4 +1,5 @@
 #include <iostream>
+#include <new>
 #include "vektor.hpp"
 
 using namespace std;
@@ -150,8 +151,8 @@ void test12()
 	vektor<float>		x(v1);
 
 	cout << "test12" << endl;
-	for(auto i = x.begin(); i < x.end(); i++) {
-		cout << *i << endl;
+	for(auto i : x) {
+		cout << i << endl;
 	}
 	cout << "end test12" << endl;
 }
@@ -198,6 +199,26 @@ void test15()
 	return;
 }
 
+void test16()
+{
+	vector<float>	bar = {1.0, 2.0};
+	vektor<float>	*foo;
+
+	cout << "test16()" << endl;
+	try { foo = new vektor<float>[1024*1024*1024]; }
+	catch(std::bad_alloc& ba) {
+		std::cerr << "bad_alloc caught: " << ba.what() << std::endl;
+	}
+
+	for(auto i = 0; i < 100; i++ ) {
+		foo[i] = bar;
+	}
+
+	cout << foo[99] << endl;
+	delete[] foo;
+	return;
+}
+
 int main(int argc, char *argv[])
 {
 	int 		rc;
@@ -219,6 +240,7 @@ int main(int argc, char *argv[])
 	test13();
 	test14();
 	test15();
+	test16();
 
 	return(0);
 }

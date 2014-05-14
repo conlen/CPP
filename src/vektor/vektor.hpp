@@ -115,7 +115,7 @@ class vektor
 template<typename T>
 vektor<T>::vektor()
 {
-	std::cout << "Construct vektor" << std::endl;
+	std::cout << "vektor<T>::vektor()" << std::endl;
 	return;
 }
 

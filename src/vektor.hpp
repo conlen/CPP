@@ -18,7 +18,7 @@ class vektor {
 		uint64_t	dimension();
 		bool		isValid();
 
-	friend std::ostream& operator<<(std::ostream& s, vektor<T, debug> &v) {
+	friend std::ostream& operator<< <T, DEBUG>(std::ostream& s, vektor<T, debug> &v) {
 		int	i;
 
 		if(debug == true) {
