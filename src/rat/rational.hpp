@@ -18,7 +18,9 @@ class rational {
 		rational<T, DEBUG>&		operator=(const rational<T, DEBUG> &o);
 		bool					operator==(const rational<T, DEBUG> &o);
 		rational<T, DEBUG>		operator+(const rational<T, DEBUG> &o);
+		rational<T, DEBUG>		operator-(const rational<T, DEBUG> &o);		
 		rational<T, DEBUG>		operator*(const rational<T, DEBUG> &o);
+		rational<T, DEBUG>		operator/(const rational<T, DEBUG> &o);
 		template<typename U>
 		rational<T, DEBUG>		operator*(const U &o);
 		void					reduce();
@@ -72,11 +74,31 @@ rational<T, DEBUG> rational<T, DEBUG>::operator+(const rational<T, DEBUG> &o)
 }
 
 template<typename T, bool DEBUG>
+rational<T, DEBUG> rational<T, DEBUG>::operator-(const rational<T, DEBUG> &o)
+{
+	rational<T, DEBUG>	r;
+	r.n = n * o.d - o.n * d;
+	r.d = d * o.d;
+	r.reduce();
+	return(r);
+}
+
+template<typename T, bool DEBUG>
 rational<T, DEBUG> rational<T, DEBUG>::operator*(const rational<T, DEBUG> &o)
 {
 	rational<T, DEBUG>	r;
 	r.n = n * o.n;
 	r.d = d * o.d;
+	r.reduce();
+	return(r);
+}
+
+template<typename T, bool DEBUG>
+rational<T, DEBUG> rational<T, DEBUG>::operator/(const rational<T, DEBUG> &o)
+{
+	rational<T, DEBUG>	r;
+	r.n = n * o.d;
+	r.d = d * o.n;
 	r.reduce();
 	return(r);
 }

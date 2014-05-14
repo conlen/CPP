@@ -18,5 +18,9 @@ int main(int argc, char *argv[])
 	cout << r << endl;
 	z = x*4;
 	cout << z << endl;
+	z = x - y;
+	cout << z << endl;
+	z = x / y;
+	cout << z << endl;
 	return(0);
 }
